@@ -1,0 +1,41 @@
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+
+                    <div ngbDropdown class="d-inline-block">
+                        <button class="btn" id="dropdownBasic1" ngbDropdownToggle>Students</button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button ngbDropdownItem routerLink="/students/add">Add Student</button>
+                            <button ngbDropdownItem routerLink="/students">List Students</button>
+                        </div>
+                    </div>
+
+                    <div ngbDropdown class="d-inline-block">
+                        <button class="btn" id="dropdownBasic1" ngbDropdownToggle>Employees</button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button ngbDropdownItem routerLink="/employees/add">Add Employee</button>
+                            <button ngbDropdownItem routerLink="/employees">List Employees</button>
+                        </div>
+                    </div>
+
+                    <div ngbDropdown class="d-inline-block">
+                        <button class="btn" id="dropdownBasic1" ngbDropdownToggle>Departments</button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button ngbDropdownItem routerLink="/departments/add">Add Department</button>
+                            <button ngbDropdownItem routerLink="/departments">List Departments</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <router-outlet></router-outlet>
+</div>

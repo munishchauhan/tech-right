@@ -1,0 +1,76 @@
+<div class="padding">
+    <h2>Register Volunteer</h2>
+</div>
+<div class="border padding">
+    <form [formGroup]="registerForm" (ngSubmit)="submitForm(registerForm.value)">
+        <!--Row 1-->
+        <div class="row padding">
+            <div class="col-sm-2">
+                <label for="name">Name</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" formControlName="name" class="form-control" name="name">
+                <div [hidden]="registerForm.controls['name'].valid || 
+                registerForm.controls['name'].pristine" class="error">
+                    Name is required
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <label for="surname">Surname</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" formControlName="surname" class="form-control" name="surname">
+                <div [hidden]="registerForm.controls['surname'].valid ||
+                registerForm.controls['surname'].pristine" class="error">
+                    Surname is required
+                </div>
+            </div>
+        </div>
+        <!--Row 2-->
+        <div class="row padding">
+            <div class="col-md-2">
+                <label for="emailAddress">Email</label>
+            </div>
+            <div class="col-md-4">
+                <input type="email" class="form-control" placeholder="Enter email" formControlName="emailAddress">
+                <div class="error" [hidden]="f.emailAddress.valid || f.emailAddress.pristine">
+                    <p *ngIf="f.emailAddress.errors?.required">Email Address is required</p>
+                    <p *ngIf="f.emailAddress.errors?.email">Email Address should be a valid email</p>
+                    <p *ngIf="f.emailAddress.errors?.maxlength">Email Address cannot exceed 150 characters</p>
+                </div>
+            </div>
+        </div>
+        <!--Row 3-->
+        <div class="row padding">
+            <div class="col-sm-2">
+                <label for="phone">Phone Number</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" formControlName="phone" class="form-control" name="phone">
+                <div [hidden]="f.phone.valid || f.phone.pristine" class="error">
+                    <p *ngIf="f.phone.errors?.required">Phone is required</p>
+                    <p *ngIf="f.phone.errors?.minlength">Min length should be 10 characters</p>
+                    <p *ngIf="f.phone.errors?.maxlength">Phone number cannot exceed 13 characters</p>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <label for="address">Address</label>
+            </div>
+            <div class="col-sm-4">
+                <textarea rows="3" formControlName="address" class="form-control" name="address">
+            </textarea>
+            </div>
+        </div>
+
+
+        <!--Row 4-->
+        <div class="row padding">
+            <div class="col-sm-3">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            <div class="col-sm-3">
+                <a routerLink="/">Back to Login</a>
+            </div>
+        </div>
+    </form>
+</div>

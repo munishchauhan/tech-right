@@ -1,0 +1,34 @@
+<div class="row mt-5">
+    <div class="col-md-3 mb-3" *ngFor="let stu of students">
+        <div class="card">
+            <div class="card-header">
+                <span>STUDENT</span> {{stu.id}}
+            </div>
+            <div class="card-body">
+                {{stu.firstName}}&nbsp;{{stu.lastName}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let stu of students">
+            <th scope="row">{{stu.id}}</th>
+            <td> {{stu.firstName}}</td>
+            <td>{{stu.lastName}}</td>
+            <td>
+                <a class="text-primary" [routerLink]="['/students/edit', stu.id ]">Edit</a>&nbsp;|&nbsp;<a
+                    class="text-danger">Delete</a>
+            </td>
+        </tr>
+    </tbody>
+</table>

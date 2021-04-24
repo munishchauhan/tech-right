@@ -1,0 +1,54 @@
+<h3 style="margin-top: 20px;margin-bottom: 20px;">Add Department</h3>
+<form [formGroup]="deptForm" (ngSubmit)="onSubmit(deptForm.value)">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label>Department Name</label>
+                    <input type="text" name="deptName" formControlName="deptName" placeholder="Enter department name"
+                        class="form-control">
+                    <div class="error" [hidden]="f.deptName.valid || f.deptName.pristine">
+                        <p *ngIf="f.deptName.errors?.required">Department name is required</p>
+                        <p *ngIf="f.deptName.errors?.maxlength">Department name cannot exceed 50 characters</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label>Description</label>
+                    <textarea type="text" name="description" formControlName="description"
+                        placeholder="Enter description" class="form-control"></textarea>
+                    <div class="error" [hidden]="f.description.valid || f.description.pristine">
+                        <p *ngIf="f.description.errors?.required">Description is required</p>
+                        <p *ngIf="f.description.errors?.maxlength">Description cannot exceed 500 characters</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label>No of Employees</label>
+                    <input type="text"  name="empCount" formControlName="empCount" placeholder="Enter Employee Count"
+                        class="form-control">
+                    <div class="error" [hidden]="f.empCount.valid || f.empCount.pristine">
+                        <p *ngIf="f.empCount.errors?.required">Employee Count is required</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <button class="btn btn-primary" [disabled]="deptForm.invalid" type="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6" style="background: #f4f4f4;padding: 20px;">
+            <p class="text-muted">Here is the data:</p>
+
+            <strong>{{dept?.deptName}}</strong><br>
+            <span> {{dept?.description}} </span>
+            <br>
+            <p>
+                <strong>Employee Count</strong>: <span>{{dept?.empCount}}</span>
+            </p>
+        </div>
+    </div>
+</form>

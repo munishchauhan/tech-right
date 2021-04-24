@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Student Add</li>
+            </ol>
+        </nav>
+        <div class="border padding">
+            <h3>Add Student: <span style="color: yellowgreen;">Template Driven Form</span></h3>
+            <form #postForm="ngForm">
+                <!--1-->
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label for="fname">First name</label>
+                        <input required type="text" name="fname" class="form-control" placeholder="Enter first name"
+                            [(ngModel)]="firstName" #fname="ngModel">
+                        <div class="error" [hidden]="fname.valid || fname.pristine">
+                            First name is required
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="lname">Last name</label>
+                        <input required type="text" name="lname" class="form-control" placeholder="Enter last name"
+                            [(ngModel)]="lastName" #lname="ngModel">
+                        <div class="error" [hidden]="lname.valid || lname.pristine">
+                            Last name is required
+                        </div>
+                    </div>
+                </div>
+                <!--2-->
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label for="age">Age</label>
+                        <input type="number" name="age" class="form-control" placeholder="Enter age" [(ngModel)]="age">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="dateOfBirth">Date of Birth</label>
+                        <input type="text" name="dateOfBirth" class="form-control" [(ngModel)]="dateOfBirth"
+                            #dob="ngModel">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <button [disabled]="postForm.invalid" type="button" (click)="submitData()"
+                            class="btn btn-primary">Submit</button>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button" (click)="reset()" class="btn btn-secondary">Reset</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div *ngIf="dataSubmitted" style="margin-top: 40px;">
+            <ul class="list-group">
+                <li class="list-group-item">{{firstName}}</li>
+                <li class="list-group-item">{{lastName}}</li>
+                <li class="list-group-item">{{age}}</li>
+                <li class="list-group-item">{{dateOfBirth}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
