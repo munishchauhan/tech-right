@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { formatDate } from '@angular/common';
 
 @Component({
@@ -17,7 +18,9 @@ export class StudentAddComponent implements OnInit {
   // formattedDate = formatDate(this.dt, 'dd-MM-yyyy hh:mm', 'en-IN');
   // dateOfBirth: any = this.formattedDate;
 
-  constructor() { }
+  constructor(
+    private httpClient: HttpClient
+  ) { }
 
   ngOnInit(): void {
     // let dt = new Date();
@@ -26,6 +29,18 @@ export class StudentAddComponent implements OnInit {
 
   submitData() {
     this.dataSubmitted = true;
+    let studentData: any;
+    this.httpClient.post('http://localhost:8080/student/register', studentData)
+      .subscribe(
+        {
+          next: resp => {
+
+          },
+          error: err => {
+
+          }
+        }
+      );
   }
 
   reset() {
