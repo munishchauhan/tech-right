@@ -14,7 +14,7 @@
                     <div class="col-md-6 form-group">
                         <label for="fname">First name</label>
                         <input required type="text" name="fname" class="form-control" placeholder="Enter first name"
-                            [(ngModel)]="firstName" #fname="ngModel">
+                            [(ngModel)]="student.firstName" #fname="ngModel">
                         <div class="error" [hidden]="fname.valid || fname.pristine">
                             First name is required
                         </div>
@@ -23,7 +23,7 @@
                     <div class="col-md-6 form-group">
                         <label for="lname">Last name</label>
                         <input required type="text" name="lname" class="form-control" placeholder="Enter last name"
-                            [(ngModel)]="lastName" #lname="ngModel">
+                            [(ngModel)]="student.lastName" #lname="ngModel">
                         <div class="error" [hidden]="lname.valid || lname.pristine">
                             Last name is required
                         </div>
@@ -33,11 +33,11 @@
                 <div class="row">
                     <div class="col-md-6 form-group">
                         <label for="age">Age</label>
-                        <input type="number" name="age" class="form-control" placeholder="Enter age" [(ngModel)]="age">
+                        <input type="number" name="age" class="form-control" placeholder="Enter age" [(ngModel)]="student.age">
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="dateOfBirth">Date of Birth</label>
-                        <input type="text" name="dateOfBirth" class="form-control" [(ngModel)]="dateOfBirth"
+                        <input type="text" name="dateOfBirth" class="form-control" [(ngModel)]="student.dateOfBirth"
                             #dob="ngModel">
                     </div>
                 </div>
@@ -51,15 +51,6 @@
                     </div>
                 </div>
             </form>
-        </div>
-
-        <div *ngIf="dataSubmitted" style="margin-top: 40px;">
-            <ul class="list-group">
-                <li class="list-group-item">{{firstName}}</li>
-                <li class="list-group-item">{{lastName}}</li>
-                <li class="list-group-item">{{age}}</li>
-                <li class="list-group-item">{{dateOfBirth}}</li>
-            </ul>
         </div>
     </div>
 </div>
