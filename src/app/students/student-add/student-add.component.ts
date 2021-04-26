@@ -1,3 +1,4 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { formatDate } from '@angular/common';
@@ -28,10 +29,16 @@ export class StudentAddComponent implements OnInit {
 
   constructor(
     private httpClient: HttpClient,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    let id = this.activatedRoute.snapshot.params['id'];
+    alert(id);
+
+
     // let dt = new Date();
     // let formattedDate = formatDate(dt, 'dd-MM-yyyy', 'en-IN');
   }
@@ -46,6 +53,7 @@ export class StudentAddComponent implements OnInit {
             //console.log(resp);
             if (resp.id > 0) {
               this.toastr.success('Student added');
+              this.router.navigateByUrl('/students');
             } else {
               this.toastr.error('Student could not be added');
             }

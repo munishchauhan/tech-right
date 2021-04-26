@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
+import { Student } from "src/app/_models/student.model";
 
 @Component({
     selector: 'app-student-list',
@@ -18,8 +19,9 @@ export class StudentListComponent implements OnInit {
         this.httpClient.get('http://localhost:8080/student/all')
           .subscribe(
             {
-              next: resp => {
+              next: (resp:Student[]) => {
                 console.log(resp);
+                this.students = resp;
               },
               error: err => {
                 console.log(err);
