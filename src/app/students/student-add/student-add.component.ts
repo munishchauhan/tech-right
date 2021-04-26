@@ -48,7 +48,8 @@ export class StudentAddComponent implements OnInit {
           }
         }
       );
-  }
+
+      }
 
   reset() {
     // this.firstName = this.lastName = '';
