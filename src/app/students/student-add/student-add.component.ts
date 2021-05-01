@@ -39,7 +39,6 @@ export class StudentAddComponent implements OnInit {
     // let formattedDate = formatDate(dt, 'dd-MM-yyyy', 'en-IN');
   }
 
-  // Basic YW5pOmVlZTEyMw==
   // get student details
   getDetails(id) {
     this.httpClient.get(`http://localhost:8080/student/${id}`,this.generateHeaders())
@@ -81,10 +80,6 @@ export class StudentAddComponent implements OnInit {
   }
 
   reset() {
-    // this.firstName = this.lastName = '';
-    // this.age = null;
-    // this.dateOfBirth = null;
-    // this.dataSubmitted = false;
   }
 
   private generateHeaders() {
