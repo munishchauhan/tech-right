@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { Student } from "src/app/_models/student.model";
 
@@ -16,7 +16,7 @@ export class StudentListComponent implements OnInit {
 
     allStudentDetails(){
             
-        this.httpClient.get('http://localhost:8080/student/all')
+        this.httpClient.get('http://localhost:8080/student/all', this.generateHeaders())
           .subscribe(
             {
               next: (resp:Student[]) => {
@@ -30,6 +30,16 @@ export class StudentListComponent implements OnInit {
           );
 
     }
+
+    private generateHeaders() {
+      return {
+        headers: new HttpHeaders(
+          {
+            'Authorization': 'Basic YW5pOmVlZTEyMw=='
+          })
+      };
+    }
+
     ngOnInit(): void {
 
         this.allStudentDetails();

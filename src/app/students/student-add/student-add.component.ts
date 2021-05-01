@@ -1,6 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { formatDate } from '@angular/common';
 import { Student } from 'src/app/_models/student.model';
 import { ToastrService } from 'ngx-toastr';
@@ -39,9 +39,10 @@ export class StudentAddComponent implements OnInit {
     // let formattedDate = formatDate(dt, 'dd-MM-yyyy', 'en-IN');
   }
 
+  // Basic YW5pOmVlZTEyMw==
   // get student details
   getDetails(id) {
-    this.httpClient.get(`http://localhost:8080/student/${id}`)
+    this.httpClient.get(`http://localhost:8080/student/${id}`,this.generateHeaders())
       .subscribe(
         {
           next: (resp: Student) => {
@@ -86,4 +87,12 @@ export class StudentAddComponent implements OnInit {
     // this.dataSubmitted = false;
   }
 
+  private generateHeaders() {
+    return {
+      headers: new HttpHeaders(
+        {
+          'Authorization': 'Basic YW5pOmVlZTEyMw=='
+        })
+    };
+  }
 }
