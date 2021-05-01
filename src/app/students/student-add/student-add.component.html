@@ -3,11 +3,13 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Student Add</li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    {{ id === 0 ? 'Add' : 'Edit' }}
+                    Student</li>
             </ol>
         </nav>
         <div class="border padding">
-            <h3>Add Student: <span style="color: green;">Template Driven Form</span></h3>
+            <h3>{{ id === 0 ? 'Add' : 'Edit' }} Student: <span style="color: green;">Template Driven Form</span></h3>
             <form #postForm="ngForm">
                 <!--1-->
                 <div class="row">
@@ -44,7 +46,9 @@
                 <div class="row">
                     <div class="col-md-3">
                         <button [disabled]="postForm.invalid" type="button" (click)="submitData()"
-                            class="btn btn-primary">Submit</button>
+                            class="btn btn-primary">
+                            {{ id === 0 ? 'Add' : 'Update' }} Student
+                        </button>
                     </div>
                     <div class="col-md-3">
                         <button type="button" (click)="reset()" class="btn btn-secondary">Reset</button>

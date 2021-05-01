@@ -41,7 +41,7 @@ export class StudentAddComponent implements OnInit {
 
   // get student details
   getDetails(id) {
-    this.httpClient.get(`http://localhost:8080/student/${id}`,this.generateHeaders())
+    this.httpClient.get(`http://localhost:8080/student/${id}`, this.generateHeaders())
       .subscribe(
         {
           next: (resp: Student) => {
@@ -58,7 +58,20 @@ export class StudentAddComponent implements OnInit {
   submitData() {
     this.dataSubmitted = true;
     console.log(this.student);
-    this.httpClient.post('http://localhost:8080/student/register', this.student)
+
+    if (this.id === 0) // ADD Mode
+    {
+      this.addStudent();
+    } else { // EDIT Mode
+      this.updateStudent();
+    }
+  }
+
+  private updateStudent() {
+    this.httpClient.put(`http://localhost:8080/student/updateStudentDetail/${this.id}`,
+      this.student,
+      this.generateHeaders()
+    )
       .subscribe(
         {
           next: (resp: any) => {
@@ -76,7 +89,31 @@ export class StudentAddComponent implements OnInit {
           }
         }
       );
+  }
 
+  private addStudent() {
+    this.httpClient.post(
+      'http://localhost:8080/student/register',
+      this.student,
+      this.generateHeaders()
+    )
+      .subscribe(
+        {
+          next: (resp: any) => {
+            //console.log(resp);
+            if (resp.id > 0) {
+              this.toastr.success('Student added');
+              this.router.navigateByUrl('/students');
+            } else {
+              this.toastr.error('Student could not be added');
+            }
+          },
+          error: err => {
+            // console.log(err);
+            this.toastr.error('Student could not be added');
+          }
+        }
+      );
   }
 
   reset() {
