@@ -11,6 +11,8 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./student-add.component.scss']
 })
 export class StudentAddComponent implements OnInit {
+
+  id = 0;
   dataSubmitted: boolean = false;
   student: Student = {
     age: 0,
@@ -18,14 +20,6 @@ export class StudentAddComponent implements OnInit {
     firstName: null,
     lastName: null
   };
-
-  // firstName: string = '';
-  // lastName: string;
-  // age: number;
-  // dt = new Date();
-  // dateOfBirth: any;
-  // formattedDate = formatDate(this.dt, 'dd-MM-yyyy hh:mm', 'en-IN');
-  // dateOfBirth: any = this.formattedDate;
 
   constructor(
     private httpClient: HttpClient,
@@ -35,12 +29,30 @@ export class StudentAddComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    let id = this.activatedRoute.snapshot.params['id'];
-    alert(id);
+    this.id = this.activatedRoute.snapshot.params['id'] || 0;
 
-
+    if (this.id > 0) // EDIT MODE
+    {
+      this.getDetails(this.id);
+    }
     // let dt = new Date();
     // let formattedDate = formatDate(dt, 'dd-MM-yyyy', 'en-IN');
+  }
+
+  // get student details
+  getDetails(id) {
+    this.httpClient.get(`http://localhost:8080/student/${id}`)
+      .subscribe(
+        {
+          next: (resp: Student) => {
+            console.log(resp);
+            this.student = resp;
+          },
+          error: err => {
+            console.log(err);
+          }
+        }
+      );
   }
 
   submitData() {
