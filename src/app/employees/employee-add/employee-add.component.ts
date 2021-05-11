@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Employee } from '../../_models/employee.model';
@@ -13,12 +14,13 @@ export class EmployeeAddComponent implements OnInit {
   employee: Employee = new Employee();
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private httpClient: HttpClient,
   ) { }
 
   ngOnInit(): void {
     this.employeeForm = this.fb.group({
-      firstName: [null, Validators.required ],
+      firstName: [null, Validators.required],
       lastName: ['', Validators.required],
       hireDate: [],
       age: [],
@@ -29,16 +31,50 @@ export class EmployeeAddComponent implements OnInit {
     });
   }
 
-  submitForm(){
-    alert('Submitted');
+  submitForm() {
+    console.log(this.employeeForm.status);
+    console.log(this.employeeForm.value);
+
+    this.httpClient.post(
+      'http://localhost:8080/employee',
+      this.employeeForm.value,
+      this.generateHeaders()
+    )
+      .subscribe(
+        {
+          next: (resp: any) => {
+            //console.log(resp);
+            if (resp.id > 0) {
+              //this.toastr.success('Student added');
+              //this.router.navigateByUrl('/employess');
+            } else {
+              //this.toastr.error('Student could not be added');
+            }
+          },
+          error: err => {
+            console.log(err);
+            //this.toastr.error('Student could not be added');
+          }
+        }
+      );
+
   }
 
-  delete(){
+  delete() {
     alert('Deleted');
   }
 
-  updated(){
+  update() {
     alert('Updated');
+  }
+
+  private generateHeaders() {
+    return {
+      headers: new HttpHeaders(
+        {
+          'Authorization': 'Basic YW5pOmVlZTEyMw=='
+        })
+    };
   }
 
 }
