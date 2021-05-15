@@ -57,7 +57,6 @@ export class EmployeeAddComponent implements OnInit {
           }
         }
       );
-
   }
 
   delete() {
@@ -76,5 +75,4 @@ export class EmployeeAddComponent implements OnInit {
         })
     };
   }
-
 }
