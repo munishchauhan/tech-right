@@ -2,11 +2,15 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
         <li class="breadcrumb-item"><a routerLink="/employees">Employees</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Add Employee</li>
+        <li class="breadcrumb-item"><a routerLink="/"></a></li>
+        {{ id === 0 ? 'Add Employeee' : 'Edit Employee' }}
+      
+       
     </ol>
 </nav>
 <h2 class="padding">Add Employee <span style="color: yellowgreen;">{{employee.firstName}}</span></h2>
 <form [formGroup]="employeeForm" (ngSubmit)="submitForm()">
+    
     <div class="row">
         <div class="col-md-4 form-group">
             <label for="firstName">First Name</label>
@@ -43,25 +47,37 @@
         </div>
         <div class="col-md-4 form-group">
             <label for="deptId">Department</label>
-            <select name="deptId" placeholder="Enter department" 
-            formControlName="deptId"
+            <select name="department" placeholder="Enter department" 
+            formControlName="department"
             class="form-control">
-                <option value="1">IT</option>
-                <option value="2">Sales</option>
+                <option value="IT">IT</option>
+                <option value="Sales">Sales</option>
             </select>
         </div>
     </div>
     <div class="row">
         <div class="col-md-4 form-group">
-            <label for="isActive">Is Active</label><br>
-            <input type="checkbox" name="isActive"  formControlName="isActive">
+            <label for="isActive">Status</label><br>
+            <input type="checkbox" name="isActive"  formControlName="status">
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4 form-group">
-            <button type="submit" class="btn btn-success btn-block">Add</button>
-            <button type="button" class="btn btn-success btn-block" (click)="delete()">Delete</button>
-            <button type="button" class="btn btn-success btn-block" (click)="update()">Update</button>
+        <div  class="col-md-2 form-group">
+            <button type="button" class="btn btn-outline-success btn-block" (click)="view()">View</button>
+         </div>
+        <div class="col-md-2 form-group">
+            <button type="submit" class="btn btn-success btn-block" [disabled]="id>0">Add
+        
+              </button>
+           
         </div>
+        <div  class="col-md-2 form-group">
+            <button type="button" class="btn btn-danger btn-block" (click)="update()" 
+            [disabled]="id===0">Update</button>
+         </div>
+        <div  class="col-md-2 form-group">
+            <button type="button" class="btn btn-danger btn-block" (click)="delete()" [disabled]="id>0">
+                Delete</button>
+         </div>
     </div>
 </form>

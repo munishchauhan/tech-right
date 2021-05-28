@@ -1,1 +1,32 @@
 <h2>list-employee works!</h2>
+<table class="table">
+    <thead>
+        <tr>
+            
+            <th scope="col">FirstName</th>
+            <th scope="col">LastName</th>
+            <th scope="col">HireDate</th>
+            <th scope="col">Age</th>
+            <th scope="col">Email</th>
+            <th scope="col">Department</th>
+            <th scope="col">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let emp of employeeList">
+           <!-- <a class="text-primary" [routerLink]="['/students/edit', stu.id ]">Edit</a>&nbsp;|&nbsp;<a
+            class="text-danger">Delete</a>-->
+            <td> <a class="text-primary" [routerLink]="['/employees/edit', emp.studentId]">{{emp.firstName}}</a>
+                
+                </td>
+            <td>{{emp.lastName}}</td>
+            <td> {{emp.hireDate}}</td>
+            <td>{{emp.age}}</td>
+            <td>{{emp.email}}</td>
+            <td>{{emp.department}}</td>
+            <td>{{emp.status}}</td>
+
+            
+        </tr>
+    </tbody>
+</table>
