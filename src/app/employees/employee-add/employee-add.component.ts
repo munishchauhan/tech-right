@@ -1,10 +1,9 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { HttpClient } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Employee } from '../../_models/employee.model';
+import { RepositoryService } from 'src/app/_services/repository.service';
 
 
 @Component({
@@ -18,9 +17,9 @@ export class EmployeeAddComponent implements OnInit {
   employee: Employee = new Employee();
   id = 0;
   constructor(private fb: FormBuilder,
-    private httpClient: HttpClient,
     private toastr: ToastrService,
     private activatedRoute: ActivatedRoute,
+    private repositoryService: RepositoryService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -43,29 +42,26 @@ export class EmployeeAddComponent implements OnInit {
   }
 
   getDetails(employeeId) {
-    this.httpClient.get('http://localhost:8080/employee/findByEmployeeId/' + employeeId)
-      .subscribe({
-        next: (resp) => { console.log(resp);
-          this.employeeForm.patchValue(resp);
-        },
-        error: (err) => {console.log(err) }
-      });
+    const route = `employee/findByEmployeeId/${employeeId}`;
+    this.repositoryService.getData(route).subscribe({
+      next: (resp) => {
+        console.log(resp);
+        this.employeeForm.patchValue(resp);
+      },
+      error: (err) => { console.log(err) }
+    });
   }
 
   submitForm() {
 
     console.log(this.employeeForm.value);
-    if(this.employeeForm.invalid){
+    if (this.employeeForm.invalid) {
       this.toastr.warning("Please fill all the mandatory columns");
       return;
-      
     }
-    // return;
-    this.httpClient.post(
-      'http://localhost:8080/employee/addEmployee',
-      this.employeeForm.value
-      //this.generateHeaders()
-    )
+
+    const route = 'employee/addEmployee';
+    this.repositoryService.create(route, this.employeeForm.value)
       .subscribe(
         {
           next: (resp: any) => {
@@ -79,7 +75,7 @@ export class EmployeeAddComponent implements OnInit {
           },
           error: err => {
             console.log(err);
-            //this.toastr.error('Student could not be added');
+            this.toastr.error('Employee could not be added');
           }
         }
       );
@@ -87,38 +83,34 @@ export class EmployeeAddComponent implements OnInit {
 
   view() {
     this.router.navigateByUrl('/employees/list');
-  
   }
 
   delete() {
-    alert('Deleted');
+    const route = `employee/delete/${this.id}`
+    this.repositoryService.delete(route).subscribe({
+      next: (resp) => {
+        console.log(resp);
+      },
+      error: (err) => { console.log(err) }
+    });
   }
 
   update() {
-    this.httpClient.put('http://localhost:8080/employee/updateEmployeeDetail/'+this.id,
-    this.employeeForm.value)
-    .subscribe({
-        next:(resp:any) =>{
+    const route = `employee/updateEmployeeDetail/${this.id}`;
+    this.repositoryService.update(route, this.employeeForm.value)
+      .subscribe({
+        next: (resp: any) => {
           console.log(resp);
           this.toastr.success('Employee Details Updated');
           this.router.navigateByUrl('/employees/list');
 
         },
-        error:(err:any) => {
-            console.log(err);
-            this.toastr.error('Employee could not be updated');
-          }   
+        error: (err: any) => {
+          console.log(err);
+          this.toastr.error('Employee could not be updated');
+        }
 
-    });
- 
-  }
+      });
 
-  private generateHeaders() {
-    return {
-      headers: new HttpHeaders(
-        {
-          'Authorization': 'Basic YW5pOmVlZTEyMw=='
-        })
-    };
   }
 }

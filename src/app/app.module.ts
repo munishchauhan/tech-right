@@ -11,6 +11,8 @@ import { RegisterVolunteerComponent } from './volunteers/register-volunteer/regi
 import { AuthLayoutComponent } from './layout/auth-layout/auth-layout.component';
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 import { HttpClientModule } from '@angular/common/http';
+import { EnvironmentUrlService } from './_services/environment-url.service';
+import { RepositoryService } from './_services/repository.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,10 @@ import { HttpClientModule } from '@angular/common/http';
       preventDuplicates: true,
     }), // ToastrModule added
   ],
-  providers: [],
+  providers: [
+    EnvironmentUrlService,
+    RepositoryService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
